@@ -1,0 +1,31 @@
+﻿@model object
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<header>
+    <nav class="navbar navbar-expand-sm mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Carga Horaria - CRUD</a>
+
+            <div class="collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Página Inicial</a>
+                    </li>
+                    @if (Model is UsuarioModel)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Envio" asp-action="Index">Enviar comprovante</a>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="EstudanteLogin" asp-action="Logout">Sair</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

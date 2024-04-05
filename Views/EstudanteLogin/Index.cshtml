@@ -1,0 +1,76 @@
+﻿@model EstudanteLoginModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@{
+    ViewData["Title"] = "Autenticação de acesso";
+    Layout = "_LoginLayout";
+}
+
+
+
+<div class="login-container">
+    <div class="logo">
+        <img src="~/Images/logoifms.png" alt="logoifms">
+    </div>
+    <strong>Login como estudante</strong>
+
+    @if(TempData["MensagemErro"] != null) //Caso haja mensagem de erro
+    {
+        <div id="alert" class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" data-bs-dimiss="alert" aria-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <form id="login-form" asp-controller="EstudanteLogin" asp-action="Logar" method="POST">
+        <div class="form-group">
+            <label for="cpf">CPF:</label>
+            <input asp-for="CPF" type="text" maxlength="14" id="cpf" name="cpf" />
+            @Html.ValidationMessageFor(x => x.CPF)
+        </div>
+        <div class="form-group">
+            <label for="Data_nasc">Data de Nascimento:</label>
+            <input asp-for="Data_nasc" type="text" id="datanasc" max-length="10" />
+            @Html.ValidationMessageFor(x => x.Data_nasc)
+
+        </div>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <a asp-action="Adm">Sou professor/servidor</a>
+
+</div>
+
+@if(TempData["Echo"] != null || TempData["Echo2"] != null)
+{
+    <div>
+        <pre>
+            @TempData["Echo"]
+        <br />
+            @TempData["Echo2"]
+            </pre>
+    </div>
+
+}
+
+<script>
+    const input = document.getElementById("cpf");
+    input.addEventListener('keypress', () => {
+        let inputlength = input.value.length;
+
+        if (inputlength === 3 || inputlength === 7) input.value += '.';
+        if (inputlength === 11) input.value += '-';
+    });
+
+    const input_nasc = document.getElementById('datanasc');
+    input_nasc.addEventListener('keypress', () => {
+        let inputlength_nasc = input_nasc.value.length;
+
+        if (inputlength_nasc === 2 || inputlength_nasc === 5) input_nasc.value += '/';
+    })
+
+</script>

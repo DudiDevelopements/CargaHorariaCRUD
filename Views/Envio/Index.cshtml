@@ -1,0 +1,71 @@
+﻿@model EnvioFormModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Envio de comprovante";
+}
+<div class="container mb-5" >
+    <h2>Envio de Comprovantes</h2>
+    @if(TempData["MensagemErroEnvio"] != null) //Caso haja mensagem de erro
+    {
+        <div id="alert" class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" data-bs-dimiss="alert" aria-label="Close">X</button>
+            @TempData["MensagemErroEnvio"]
+        </div>
+    }
+
+    <form id="submission-form" method="POST" asp-controller="Envio" asp-action="OnPostEnviar" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="email">E-mail<span style="color: red">*</span></label>
+            <input asp-for="FormEmail" type="email" id="email">
+            @Html.ValidationMessageFor(x => x.FormEmail)
+        </div>
+        <div class="form-group">
+            <label for="nome">Professor responsável<span style="color: red">*</span>:</label>
+            <input asp-for="FormProf" type="text" id="prof_responsavel">
+            @Html.ValidationMessageFor(x => x.FormProf)
+        </div>
+        <div class="form-group">
+            <label for="turma">Turma<span style="color: red">*</span>:</label>
+            <input asp-for="FormTurma" type="text" id="turma">
+            @Html.ValidationMessageFor(x => x.FormTurma)
+        </div>
+        <div class="form-group">
+            <label for="tipo-atividade">Tipo de atividade<span style="color: red">*</span>:</label>
+            <select  asp-for="FormTipo" id="tipo-atividade">
+                <option value="">Selecione...</option>
+                <option value="Unidade curriculares optativas/eletivas">
+                    Unidade curriculares optativas/eletivas
+                </option>
+                <option value="Projeto de ensino, pesquisa ou extensão">
+                    Projeto de ensino, pesquisa ou extensão
+                </option>
+                <option value="Prática profissional integradora e/ou vivência acadêmica">
+                    Prática profissional
+                    integradora e/ou vivência acadêmica
+                </option>
+                <option value="Práticas desportivas">Práticas desportivas</option>
+                <option value="Práticas artístico-culturais">Práticas artístico-culturais</option>
+            </select>
+            @Html.ValidationMessageFor(x => x.FormTipo)
+        </div>
+        <div class="form-group">
+            <label for="comprovante">Comprovante<span style="color: red">*</span>:</label>
+            <input asp-for="FormArquivo" type="file" id="comprovante" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+            @Html.ValidationMessageFor(x => x.FormEmail)
+        </div>
+        <div class="form-group">
+            <label for="observacao">Observação:</label>
+            <textarea asp-for="FormObs" id="observacao" rows="3"></textarea>
+        </div>
+        <button type="submit" id="submit-btn">Enviar</button>
+    </form>
+    @if(TempData["MensagemSucesso"] != null) //Caso haja mensagem de erro
+    {
+        <div id="alert" class="alert alert-success mt-3" role="alert">
+            <button type="button" class="btn btn-success btn-sm close-alert" data-bs-dimiss="alert" aria-label="Close">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+</div>
