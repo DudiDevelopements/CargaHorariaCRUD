@@ -1,8 +1,23 @@
-﻿@{
+﻿@using CargaHorariaCRUD.Enums
+@model EnumUsuario
+@{
     ViewData["Title"] = "Página Inicial";
 }
 
-<div>
-    @await Component.InvokeAsync("TotalHoras")
-    @await Component.InvokeAsync("Enviados")
-</div>
+@if(Model == EnumUsuario.Aluno)
+{
+    <div>
+        @await Component.InvokeAsync("TotalHoras")
+        @await Component.InvokeAsync("Enviados")
+    </div>
+}
+
+else if (Model == EnumUsuario.Admin)
+{
+    <h1 class="container">Logado como administrador</h1>
+} 
+
+else
+{
+    <h1 class="container">Você não está logado.</h1>
+}

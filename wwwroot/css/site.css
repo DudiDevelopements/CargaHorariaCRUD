@@ -143,6 +143,7 @@ th, td {
 */
 
 table {
+    overflow-x: auto; /* Enable horizontal scrolling */
     border-collapse: collapse;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -205,7 +206,7 @@ tbody tr:hover {
 }
 
 .container {
-    max-width: 800px;
+    max-width: calc(800px + 100px);
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;

@@ -1,4 +1,5 @@
-﻿using CargaHorariaCRUD.Repositories.Interfaces;
+﻿using CargaHorariaCRUD.Models.Models;
+using CargaHorariaCRUD.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

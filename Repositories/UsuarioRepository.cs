@@ -1,4 +1,4 @@
-﻿using CargaHorariaCRUD.Models;
+﻿using CargaHorariaCRUD.Models.Models;
 using CargaHorariaCRUD.Repositories.Interfaces;
 using CargaHorariaCRUD.WebHelper;
 using Microsoft.EntityFrameworkCore;

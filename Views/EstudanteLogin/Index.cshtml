@@ -1,4 +1,5 @@
-﻿@model EstudanteLoginModel
+﻿@using CargaHorariaCRUD.Models.FormModels
+@model EstudanteLoginModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -16,7 +17,7 @@
     <div class="logo">
         <img src="~/Images/logoifms.png" alt="logoifms">
     </div>
-    <strong>Login como estudante</strong>
+    <g6>Entrar como aluno</g6>
 
     @if(TempData["MensagemErro"] != null) //Caso haja mensagem de erro
     {
@@ -41,21 +42,9 @@
         <button type="submit">Entrar</button>
     </form>
 
-    <a asp-action="Adm">Sou professor/servidor</a>
+    <a asp-controller="AdmLogin" asp-action="Index">Sou professor/servidor</a>
 
 </div>
-
-@if(TempData["Echo"] != null || TempData["Echo2"] != null)
-{
-    <div>
-        <pre>
-            @TempData["Echo"]
-        <br />
-            @TempData["Echo2"]
-            </pre>
-    </div>
-
-}
 
 <script>
     const input = document.getElementById("cpf");

@@ -1,11 +1,14 @@
+using CargaHorariaCRUD.Enums;
 using CargaHorariaCRUD.Models;
+using CargaHorariaCRUD.Models.Models;
 using CargaHorariaCRUD.WebHelper.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace CargaHorariaCRUD.Controllers
 {
-    [Route("Home")]
+    [Controller]
+    [Route("PaginaInicial")]
     public class HomeController:Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -20,9 +23,14 @@ namespace CargaHorariaCRUD.Controllers
         [Route("")]
         public IActionResult Index()
         {
-            if(_session.IsLogged()) {
-                return View();
-            } else return RedirectToAction("Entrar", "EstudanteLogin");
+            object? usuario = _session.GetSessao();
+            if(usuario is UsuarioModel) return View(EnumUsuario.Aluno);
+            else if (usuario is AdmModel) return View(EnumUsuario.Admin); 
+            else
+            {
+                TempData["MensagemErro"] = "Você precisa estar logado pra acessar essa página.";
+                return RedirectToAction("Index","EstudanteLogin");
+            }
         }
 
         [Route("Error")]
@@ -30,6 +38,21 @@ namespace CargaHorariaCRUD.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Route("/Erro/{statusCode}")]
+        public IActionResult Erro404ou500(int statusCode)
+        {
+            ViewBag.StatusCode = statusCode;
+            /*
+            string originalpath = "unknown";
+            if(HttpContext.Items.ContainsKey("OriginalPath"))
+            {
+                originalpath = HttpContext.Items["OriginalPath"] as string;
+            }
+            return View();*/
+
+            return View();
         }
     }
 }

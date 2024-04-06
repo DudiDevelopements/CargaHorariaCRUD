@@ -1,0 +1,46 @@
+﻿@using CargaHorariaCRUD.Models.FormModels
+@model AdmLoginModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@{
+    ViewData["Title"] = "Autenticação de acesso";
+    Layout = "_LoginLayout";
+}
+
+
+<div class="login-container">
+    <div class="logo">
+        <img src="~/Images/logoifms.png" alt="logoifms">
+    </div>
+    <h6>Entrar como servidor</h6>
+
+    @if(TempData["MensagemErro"] != null) //Caso haja mensagem de erro
+    {
+        <div id="alert" class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" data-bs-dimiss="alert" aria-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <form id="login-form" asp-controller="AdmLogin" asp-action="Logar" method="POST">
+        <div class="form-group">
+            <label for="_email">Email:</label>
+            <input asp-for="Email" type="text" id="_email" name="email" />
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+        <div class="form-group">
+            <label for="_senha">Senha:</label>
+            <input asp-for="Senha" type="password" id="_senha" />
+            @Html.ValidationMessageFor(x => x.Senha)
+
+        </div>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <a asp-controller="EstudanteLogin" asp-action="Index">Sou aluno</a>
+
+</div>

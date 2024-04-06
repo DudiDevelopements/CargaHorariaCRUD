@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CargaHorariaCRUD.Models;
+namespace CargaHorariaCRUD.Models.Models;
 
 public partial class UsuarioModel
 {

@@ -1,4 +1,4 @@
-﻿using CargaHorariaCRUD.Models;
+﻿using CargaHorariaCRUD.Models.Models;
 using CargaHorariaCRUD.Repositories.Interfaces;
 using CargaHorariaCRUD.WebHelper;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +34,7 @@ namespace CargaHorariaCRUD.Repositories
         {
             return await _context.Envios.ToListAsync();
         }
-
+        /*
         public async Task<List<EnvioModel>> GetEnviosPorIdPagina(int itensPorPagina, int tamanhoPagina, int idaluno)
         {
             List<EnvioModel> envios = await _context.Envios.Where(e => e.IdAluno == idaluno)
@@ -42,7 +42,7 @@ namespace CargaHorariaCRUD.Repositories
                                 .Take(tamanhoPagina).ToListAsync();
             return envios;
         }
-
+        */
         public async Task<List<EnvioModel>> GetEnviosPorIdAluno(int idaluno)
         {
             List<EnvioModel> envios = await _context.Envios.Where(e => e.IdAluno == idaluno).ToListAsync();

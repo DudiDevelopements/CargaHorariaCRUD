@@ -1,4 +1,4 @@
-﻿using CargaHorariaCRUD.Models;
+﻿using CargaHorariaCRUD.Models.Models;
 
 namespace CargaHorariaCRUD.Repositories.Interfaces
 {

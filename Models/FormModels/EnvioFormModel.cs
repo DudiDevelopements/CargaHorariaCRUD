@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CargaHorariaCRUD.Models
+namespace CargaHorariaCRUD.Models.FormModels
 {
     public class EnvioFormModel
     {
@@ -8,7 +8,7 @@ namespace CargaHorariaCRUD.Models
         public string? FormEmail { get; set; }
 
         [Required(ErrorMessage = "Por favor insira seu professor")]
-        public string? FormProf {  get; set; }
+        public string? FormProf { get; set; }
 
         [Required(ErrorMessage = "Por favor insira sua turma")]
         public string? FormTurma { get; set; }
@@ -20,6 +20,6 @@ namespace CargaHorariaCRUD.Models
         [Required(ErrorMessage = "Por favor insira seu comprovante")]
         public IFormFile? FormArquivo { get; set; }
 
-        public string? FormObs {  get; set; }
+        public string? FormObs { get; set; }
     }
 }

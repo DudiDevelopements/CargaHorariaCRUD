@@ -1,4 +1,6 @@
-﻿using CargaHorariaCRUD.Models;
+﻿using CargaHorariaCRUD.Enums;
+using CargaHorariaCRUD.Models.FormModels;
+using CargaHorariaCRUD.Models.Models;
 using CargaHorariaCRUD.Repositories;
 using CargaHorariaCRUD.Repositories.Interfaces;
 using CargaHorariaCRUD.WebHelper.Interfaces;
@@ -22,14 +24,14 @@ namespace CargaHorariaCRUD.Controllers
         [Route("/")]
         public IActionResult Index()
         {
-            if(_sessao.IsLogged())
-            {
-                return RedirectToAction("Index","Home");
-            }
+            object? usuario = _sessao.GetSessao();
+            if(usuario is UsuarioModel) return RedirectToAction("Index", "Home", EnumUsuario.Aluno);
+            else if (usuario is AdmModel) return RedirectToAction("Index", "Home", EnumUsuario.Admin);
             else return View();
         }
 
         [Route("Logar")]
+        [HttpPost]
         public async Task<IActionResult> Logar(EstudanteLoginModel _login) 
         {
             try
@@ -41,7 +43,7 @@ namespace CargaHorariaCRUD.Controllers
                     if(user != null && user.DataNascimento.ToString() == _login.Data_nasc)
                     {
                         _sessao.CriarSessao(user);
-                        return RedirectToAction("Index","Home");
+                        return RedirectToAction("Index","Home", EnumUsuario.Aluno);
                     } else
                     {
                         TempData["MensagemErro"] = "Dados inválidos";
@@ -54,7 +56,7 @@ namespace CargaHorariaCRUD.Controllers
             } catch(Exception err)
             {
                 TempData["MensagemErro"] = $"{err.Message}";
-                return RedirectToAction("Entrar");
+                return RedirectToAction("Index");
             }
         }
 

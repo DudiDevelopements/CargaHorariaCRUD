@@ -32,6 +32,7 @@ namespace CargaHorariaCRUD
 
             builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
             builder.Services.AddSingleton<IUsuarioRepository, UsuarioRepository>();
+            builder.Services.AddSingleton<IAdmRepository, AdmRepository>();
             builder.Services.AddSingleton<IEnvioRepository, EnvioRepository>();
             builder.Services.AddSingleton<ISessao, Sessao>();
 
@@ -52,6 +53,23 @@ namespace CargaHorariaCRUD
                 app.UseHsts();
             }
 
+            /*
+            app.UseStatusCodePages(async context =>
+            {
+                if(context.HttpContext.Response.StatusCode == StatusCodes.Status404NotFound)
+                {
+                    context.HttpContext.Response.ContentType = "text/html";
+                    await context.HttpContext.Response.WriteAsync("<html><body>Page not found</body></html>");
+                }
+                if(context.HttpContext.Response.StatusCode == StatusCodes.Status500InternalServerError)
+                {
+                    context.HttpContext.Response.ContentType = "text/html";
+                    await context.HttpContext.Response.WriteAsync("<html><body>Internal Server error</body></html>");
+                }
+            });*/
+
+            app.UseStatusCodePagesWithRedirects("/Erro/{0}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -64,7 +82,6 @@ namespace CargaHorariaCRUD
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=EstudanteLogin}/{id?}");
-
 
             app.Run();
         }

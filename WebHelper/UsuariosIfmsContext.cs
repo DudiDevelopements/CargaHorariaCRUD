@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CargaHorariaCRUD.Models;
+using CargaHorariaCRUD.Models.Models;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 

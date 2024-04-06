@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CargaHorariaCRUD.Models
+namespace CargaHorariaCRUD.Models.FormModels
 {
     public class EstudanteLoginModel
     {
@@ -9,6 +9,6 @@ namespace CargaHorariaCRUD.Models
 
         [Required(ErrorMessage = "Por favor insira sua data de nascimento")]
         [DataType(DataType.Date)]
-        public string? Data_nasc {  get; set; }
+        public string? Data_nasc { get; set; }
     }
 }
