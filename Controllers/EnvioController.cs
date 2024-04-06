@@ -17,8 +17,11 @@ namespace CargaHorariaCRUD.Controllers
         public IActionResult Index()
         {
             object? usuario = _sessao.GetSessao();
-            if(usuario is UsuarioModel) return RedirectToAction("Index", "Home", EnumUsuario.Aluno);
-            else if (usuario is AdmModel) return RedirectToAction("Index", "Home", EnumUsuario.Admin);
+            if(usuario is UsuarioModel) return View();
+            else if (usuario is AdmModel) {
+                TempData["MsgPopup"] = "Você não tem permissão pra acessar essa página.!";
+                return RedirectToAction("Index", "Home", EnumUsuario.Admin); 
+            }
             else
             {
                 TempData["MensagemErro"] = "Você precisa estar logado pra acessar essa página.";

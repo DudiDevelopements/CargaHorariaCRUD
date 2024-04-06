@@ -6,7 +6,6 @@
 @{
 }
 
-<div class="container">
 @if(Model != null && Model.Any())
 {
     <h2 class="display-6 mb-3"><strong>Comprovantes enviados</strong></h2>
@@ -17,7 +16,7 @@
             <th>Observação</th>
             <th>Data Enviada</th>
             <th>Comprovante</th>
-            <th>Validado</th>
+            <th>Estado</th>
         </thead>
         <tbody>
                 @foreach(var envio in Model)
@@ -49,4 +48,3 @@
 {
     <h4>Você ainda não fez envios</h4>
 }
-</div>

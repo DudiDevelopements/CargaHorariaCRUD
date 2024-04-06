@@ -23,6 +23,12 @@
                             <a class="nav-link" asp-area="" asp-controller="Envio" asp-action="Index">Enviar comprovante</a>
                         </li>
                     }
+                    @if (Model is AdmModel)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Recebidos" asp-action="Index">Validar Comprovantes</a>
+                        </li>
+                    }
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="EstudanteLogin" asp-action="Logout">Sair</a>
                     </li>

@@ -4,12 +4,39 @@
     ViewData["Title"] = "Página Inicial";
 }
 
+<!-- Popup -->
+@if (TempData["MsgPopup"] != null)
+{
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Permissão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @TempData["MsgPopup"]
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 @if(Model == EnumUsuario.Aluno)
 {
     <div>
-        @await Component.InvokeAsync("TotalHoras")
-        @await Component.InvokeAsync("Enviados")
+        <div class="container" id="total">
+            @await Component.InvokeAsync("TotalHoras")
+        </div>
+
+        <div class="container">
+            @await Component.InvokeAsync("Enviados")
+        </div>
     </div>
+
 }
 
 else if (Model == EnumUsuario.Admin)
@@ -21,3 +48,10 @@ else
 {
     <h1 class="container">Você não está logado.</h1>
 }
+
+<script>
+    // Quando a página é carregada, mostra o popup
+    window.addEventListener('DOMContentLoaded', function () {
+        $('#myModal').modal('show'); // Mostra o popup
+    });
+</script>
