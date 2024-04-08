@@ -1,4 +1,5 @@
 ﻿@using CargaHorariaCRUD.Models.Models
+@using System.Globalization
 @model IEnumerable<EnvioModel>
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,7 +19,7 @@
 </style>
 
 <div class="container-lg rounded-3 bg-white p-4">
-@if (Model != null && Model.Any())
+@if (Model.Any())
 {
     <h2 class="display-6 mb-3 text-black-50"><strong>Comprovantes recebidos</strong></h2>
         <table class="is-striped" style="width:100%" id="recebidos">
@@ -41,19 +42,19 @@
                     <td>@envio.Prof</td>
                     <td>@envio.Tipo</td>
                     <td>@envio.Obs</td>
-                    <td>@envio.HorarioEnviado.ToString()</td>
+                    <td>@envio.HorarioEnviado.ToString(CultureInfo.CurrentCulture)</td>
                     <td><a href="../@envio.Path" style="color: blue !important;" target='_blank' rel='noopener noreferrer'>Ver comprovante</a> </td>
                     <td>
                         @if(!envio.Validado)
                         {
                             <form id="form@(envio.Id)">
-                                <input class="mb-3" style="width: 100% !important;" placeholder="Carga Horária" type="number" id="cargahora(envio.Id)">
+                                <input class="mb-3" style="width: 100% !important;" placeholder="Carga Horária" type="number" id="cargahoraria@(envio.Id)">
                                 <button type="button" onclick="validar(@envio.Id)">Validar</button>
                             </form>
                         } else
                         {
                             <div id="form@(envio.Id)">
-                                <span style="color: green"><strong>Já validado! <br />Carga Horária: @(envio.CargaHorariaEmHorasF()) horas</strong><span>
+                                <span style="color: green"><strong>Já validado! <br />Carga Horária: @(envio.CargaHorariaEmHorasF()) horas</strong></span>
                                 <button type="button" style="background-color: #c21414 !important;" onclick="revogar(@envio.Id)">Revogar</button>
                             </div>
                         }

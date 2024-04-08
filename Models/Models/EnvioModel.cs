@@ -42,7 +42,7 @@ public partial class EnvioModel {
     public string? CargaHorariaEmHorasF() {
         if(CargaHoraria.HasValue) {
             float horas = (float)CargaHoraria / 60;
-            return horas.ToString("F2");
+            return horas.ToString("F1");
         } else
             return null;
     }

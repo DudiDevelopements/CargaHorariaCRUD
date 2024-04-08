@@ -1,34 +1,22 @@
-﻿using CargaHorariaCRUD.Controllers;
-using CargaHorariaCRUD.Models.Models;
+﻿using CargaHorariaCRUD.Models.Models;
 using CargaHorariaCRUD.Repositories.Interfaces;
 using CargaHorariaCRUD.WebHelper;
 using Microsoft.EntityFrameworkCore;
 
 namespace CargaHorariaCRUD.Repositories {
-    public class EnvioRepository : IEnvioRepository {
-        private readonly ILogger<RecebidosController> _logger;
-
-        public EnvioRepository(ILogger<RecebidosController> logger) {
-            _logger = logger;
-        }
-
+    public class EnvioRepository() : IEnvioRepository
+    {
         private readonly UsuariosIfmsContext _context = new();
         public async Task<bool> Add(EnvioModel envio) {
-            if(envio != null) {
-                await _context.Envios.AddAsync(envio);
-                await _context.SaveChangesAsync();
-                return true;
-            } else
-                return false;
+            await _context.Envios.AddAsync(envio);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> Delete(EnvioModel envio) {
-            if(envio != null) {
-                _context.Envios.Remove(envio);
-                await _context.SaveChangesAsync();
-                return true;
-            } else
-                return false;
+            _context.Envios.Remove(envio);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<List<EnvioModel>> GetAll() {
@@ -36,36 +24,39 @@ namespace CargaHorariaCRUD.Repositories {
         }
 
         public async Task<List<EnvioModel>> GetEnviosPorIdAluno(int idaluno) {
-            List<EnvioModel> envios = await _context.Envios.Where(e => e.IdAluno == idaluno).ToListAsync();
+            var envios = await _context.Envios.Where(e => e.IdAluno == idaluno).ToListAsync();
             return envios;
         }
 
+        public async Task<EnvioModel> GetById(int id) {
+            var envio = await _context.Envios.FirstOrDefaultAsync(x => x.Id == id);
+            if (envio != null) return envio;
+            else throw new Exception("Não encontrado");
+        }
+
         public int? CargaHorariaTotalById(int idaluno) {
-            int? cgTotal = _context.Envios.Where(e => e.IdAluno == idaluno).Sum(e => e.CargaHoraria);
+            var cgTotal = _context.Envios.Where(e => e.IdAluno == idaluno).Sum(e => e.CargaHoraria);
             return cgTotal;
         }
 
         public async Task<bool> UpdateValidado(int id, int? novaCargaHoraria = null) {
-            var envio = _context.Envios.Find(id);
+            var envio = await _context.Envios.FindAsync(id);
 
-            _logger.LogInformation(id + "    " + novaCargaHoraria);
-            if(envio != null) {
-                //Será chamado em validar()
-                if(novaCargaHoraria != null) {
-                    envio.CargaHoraria = novaCargaHoraria;
-                    envio.Validado = true;
-                    await _context.SaveChangesAsync();
-                    return true;
-                }
-                //Será chamado em revogar()
-                else {
-                    envio.CargaHoraria = null;
-                    envio.Validado = false;
-                    await _context.SaveChangesAsync();
-                    return true;
-                }
-            } else
-                return false;
+            if (envio == null) return false;
+            //Será chamado em validar()
+            if(novaCargaHoraria != null) {
+                envio.CargaHoraria = novaCargaHoraria;
+                envio.Validado = true;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            
+            //Será chamado em revogar()
+            envio.CargaHoraria = null;
+            envio.Validado = false;
+            await _context.SaveChangesAsync();
+            return true;
+
         }
     }
 }

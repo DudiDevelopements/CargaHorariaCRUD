@@ -6,6 +6,7 @@ namespace CargaHorariaCRUD.Repositories.Interfaces {
         public Task<bool> Delete(EnvioModel envio);
         public Task<List<EnvioModel>> GetAll();
         public Task<List<EnvioModel>> GetEnviosPorIdAluno(int idaluno);
+        public Task<EnvioModel> GetById(int id);
         public int? CargaHorariaTotalById(int idaluno);
         //public Task<EnvioModel> GetById(int id);
         public Task<bool> UpdateValidado(int id, int? novaCargaHoraria = null);

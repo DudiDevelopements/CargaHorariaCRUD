@@ -1,16 +1,16 @@
 ﻿function validar(id) {
-    var cghoraria = $('#cargahoraria' + id).val();
+    let cghoraria = $('#cargahoraria' + id).val();
     console.log(cghoraria, id)
-    if (cghoraria != "" || cghoraria != null) {
+    if (cghoraria !== "" || cghoraria !== undefined) {
         $.ajax({
             url: '/Adm/Validar',
             method: 'POST',
             data: { idcomprovante: id, novaCargaHoraria: cghoraria },
             dataType: 'json',
             success: function (data) {
-                $('#form' + id).html("<span style='color: green'><strong>Validado com sucesso! <br />Carga Horária: " + cghoraria + "m</strong></span>");
+                $('#form' + id).html("<span style='color: green'><strong>Validado com sucesso! <br />Carga Horária: " + data.newCgHoraria + " horas</strong></span>");
             },
-            error: function (xhr, status, error) {
+            error: function (xhr, error) {
                 console.error(xhr.responseText); // Exibe detalhes do erro no console
                 $('#form' + id).html("<span style='color: red'><strong>Erro ao validar! Tente novamente mais tarde</strong></span>");
             }

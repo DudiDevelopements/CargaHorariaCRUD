@@ -7,23 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CargaHorariaCRUD.Controllers {
     [Route("Adm")]
-    public class AdmLoginController : Controller {
-        private readonly IAdmRepository _context;
-        private readonly ISessao _sessao;
-
-        public AdmLoginController(IAdmRepository context, ISessao sessao) {
-            _context = context;
-            _sessao = sessao;
-        }
+    public class AdmLoginController(IAdmRepository context, ISessao sessao) : Controller
+    {
         [Route("")]
-        public IActionResult Index() {
-            object? usuario = _sessao.GetSessao();
-            if(usuario is UsuarioModel)
-                return RedirectToAction("Index", "Home", EnumUsuario.Aluno);
-            else if(usuario is AdmModel)
-                return RedirectToAction("Index", "Home", EnumUsuario.Admin);
-            else
-                return View();
+        public IActionResult Index()
+        {
+            var usuario = sessao.GetSessao();
+            return usuario switch
+            {
+                UsuarioModel => RedirectToAction("Index", "Home", EnumUsuario.Aluno),
+                AdmModel => RedirectToAction("Index", "Home", EnumUsuario.Admin),
+                _ => View()
+            };
         }
 
         [Route("Logar")]
@@ -32,8 +27,8 @@ namespace CargaHorariaCRUD.Controllers {
             try {
                 if(ModelState.IsValid) {
                     try {
-                        AdmModel user = await _context.GetAdmByLogin(login);
-                        _sessao.CriarSessaoAdm(user);
+                        var user = await context.GetAdmByLogin(login);
+                        sessao.CriarSessaoAdm(user);
                         return RedirectToAction("Index", "Home", EnumUsuario.Admin);
                     } catch(Exception err) {
                         TempData["MensagemErro"] = $"{err.Message}";
