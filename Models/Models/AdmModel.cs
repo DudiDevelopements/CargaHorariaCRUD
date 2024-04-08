@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace CargaHorariaCRUD.Models.Models;
 
-public partial class AdmModel
-{
-    public AdmModel(int id,string nome,string email,DateOnly? dataNasc)
-    {
+public partial class AdmModel {
+    public AdmModel(int id, string nome, string email, DateOnly? dataNasc) {
         Id = id;
         Nome = nome;
         Email = email;

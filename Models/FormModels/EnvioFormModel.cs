@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CargaHorariaCRUD.Models.FormModels
-{
-    public class EnvioFormModel
-    {
+namespace CargaHorariaCRUD.Models.FormModels {
+    public class EnvioFormModel {
         [Required(ErrorMessage = "Por favor insira seu email")]
         public string? FormEmail { get; set; }
 

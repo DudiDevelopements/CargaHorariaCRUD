@@ -4,7 +4,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-  
+
 }
 
 <header>
@@ -17,14 +17,12 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Página Inicial</a>
                     </li>
-                    @if (Model is UsuarioModel)
-                    {
+                    @if(Model is UsuarioModel) {
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Envio" asp-action="Index">Enviar comprovante</a>
                         </li>
                     }
-                    @if (Model is AdmModel)
-                    {
+                    @if(Model is AdmModel) {
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Recebidos" asp-action="Index">Validar Comprovantes</a>
                         </li>

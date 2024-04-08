@@ -4,8 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CargaHorariaCRUD.Models.Models;
 
-public partial class UsuarioModel
-{
+public partial class UsuarioModel {
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Por favor insira seu CPF")]

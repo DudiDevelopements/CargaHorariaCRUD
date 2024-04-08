@@ -1,9 +1,6 @@
-namespace CargaHorariaCRUD.Models
-{
-    public class ErrorViewModel
-    {
-        public string? RequestId
-        {
+namespace CargaHorariaCRUD.Models {
+    public class ErrorViewModel {
+        public string? RequestId {
             get; set;
         }
 

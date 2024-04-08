@@ -6,45 +6,41 @@
 @{
 }
 
-@if(Model != null && Model.Any())
-{
+@if(Model != null && Model.Any()) {
     <h2 class="display-6 mb-3"><strong>Comprovantes enviados</strong></h2>
     <table>
         <thead>
-            <th>Tipo</th>
-            <th>Professor Responsável</th>
-            <th>Observação</th>
-            <th>Data Enviada</th>
-            <th>Comprovante</th>
-            <th>Estado</th>
+        <th>Tipo</th>
+        <th>Professor Responsável</th>
+        <th>Observação</th>
+        <th>Data Enviada</th>
+        <th>Comprovante</th>
+        <th>Estado</th>
         </thead>
         <tbody>
-                @foreach(var envio in Model)
-                {
-                    <tr>
-                        <td>@envio.Tipo</td>
-                        <td>@envio.Prof</td>
-                        <td>@envio.Obs</td>
-                        <td>@envio.HorarioEnviado.ToString()</td>
-                        <td><a href="@envio.Path" style="color: blue !important;" target='_blank' rel='noopener noreferrer'>Ver comprovante</a> </td>
-                        <td>@if (envio.Validado)
-                            {
-                                <span style='color: green;'>
+            @foreach(var envio in Model) {
+                <tr>
+                    <td>@envio.Tipo</td>
+                    <td>@envio.Prof</td>
+                    <td>@envio.Obs</td>
+                    <td>@envio.HorarioEnviado.ToString()</td>
+                    <td><a href="@envio.Path" style="color: blue !important;" target='_blank' rel='noopener noreferrer'>Ver comprovante</a> </td>
+                    <td>
+                        @if(envio.Validado) {
+                            <span style='color: green;'>
                                 <strong>Validado! Total: @envio.CargaHorariaEmHorasF() horas </strong>
-                                </span>
-                            } else
-                            {
-                                <span style='color: red;'>
-                                    <strong>Não validado</strong>
-                                </span>
-                            }
-                        </td>
-                    </tr>
-                }
-            
+                            </span>
+                        } else {
+                            <span style='color: red;'>
+                                <strong>Não validado</strong>
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+
         </tbody>
     </table>
-} else
-{
+} else {
     <h4>Você ainda não fez envios</h4>
 }

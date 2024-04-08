@@ -6,50 +6,68 @@
 @{
     ViewData["Title"] = "Recebidos";
 }
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
 
-<link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
-<div class="container">
+<style>
+    .active {
+        background-color: black; /* Cor desejada para a página selecionada */
+        color: black; /* Cor do texto */
+        border-color: black; /* Cor da borda */
+    }
+
+</style>
+
+<div class="container-lg rounded-3 bg-white p-4">
 @if (Model != null && Model.Any())
 {
-    <h2 class="display-6 mb-3"><strong>Comprovantes recebidos</strong></h2>
-        <table id="recebidos">
+    <h2 class="display-6 mb-3 text-black-50"><strong>Comprovantes recebidos</strong></h2>
+        <table class="is-striped" style="width:100%" id="recebidos">
         <thead>
-            <th>Tipo</th>
-            <th>Professor Responsável</th>
+            <th>Aluno</th>
+            <th>Email</th>
+            <th>Professor responsável</th>
+            <th>Tipo de atividade</th>
             <th>Observação</th>
             <th>Data Enviada</th>
             <th>Comprovante</th>
-            <th>Validado</th>
+            <th class="no-sort">Validar (em minutos)</th>
         </thead>
         <tbody>
             @foreach(var envio in Model)
             {
                 <tr>
-                    <td>@envio.Tipo</td>
+                    <td>@envio.IdAlunoNavigation.Nome</td>
+                    <td>@envio.Email</td>
                     <td>@envio.Prof</td>
+                    <td>@envio.Tipo</td>
                     <td>@envio.Obs</td>
                     <td>@envio.HorarioEnviado.ToString()</td>
                     <td><a href="../@envio.Path" style="color: blue !important;" target='_blank' rel='noopener noreferrer'>Ver comprovante</a> </td>
                     <td>
-                        @if(envio.Validado)
+                        @if(!envio.Validado)
                         {
-                            <span style='color: green;'>
-                                <strong>Validado! Total: @envio.CargaHorariaEmHorasF() horas </strong>
-                            </span>
+                            <form id="form@(envio.Id)">
+                                <input class="mb-3" style="width: 100% !important;" placeholder="Carga Horária" type="number" id="cargahora(envio.Id)">
+                                <button type="button" onclick="validar(@envio.Id)">Validar</button>
+                            </form>
                         } else
                         {
-                            <span style='color: red;'>
-                                <strong>Não validado</strong>
-                            </span>
+                            <div id="form@(envio.Id)">
+                                <span style="color: green"><strong>Já validado! <br />Carga Horária: @(envio.CargaHorariaEmHorasF()) horas</strong><span>
+                                <button type="button" style="background-color: #c21414 !important;" onclick="revogar(@envio.Id)">Revogar</button>
+                            </div>
                         }
                     </td>
+
                 </tr>
             }
 
-        </tbody>
+        </tbody> 
     </table>
 } else
 {
     <h1>Nenhum comprovante foi enviado ainda</h1>
 }
 </div>
+
+<script src="~/js/recebidos.js"></script>

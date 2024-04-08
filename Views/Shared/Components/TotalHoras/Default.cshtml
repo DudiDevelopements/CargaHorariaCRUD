@@ -6,17 +6,15 @@
     float cgEmHoras = (float)Model / 60;
     string cgEmHorasFormatado = ((float)Model / 60).ToString("F2");
 }
-    <h2>Total de Horas: @cgEmHorasFormatado H</h2>
+<h2>Total de Horas: @cgEmHorasFormatado H</h2>
 
-    @for (int i = 0; i < 6; i++)
-    {
-        float horasSemestre = Math.Max(Math.Min(cgEmHoras - (i * 40),40), 0); // Calcula as horas do semestre
-        float  horasAcumuladas = Math.Max(Math.Min(cgEmHoras,(i + 1) * 40), 0); // Calcula as horas acumuladas até este semestre
-        <p>@((i + 1) + "º semestre: " + horasSemestre.ToString("0.0").Replace(".", ",") + " de 40 horas completas")</p>
-    }
+@for(int i = 0; i < 6; i++) {
+    float horasSemestre = Math.Max(Math.Min(cgEmHoras - (i * 40), 40), 0); // Calcula as horas do semestre
+    float horasAcumuladas = Math.Max(Math.Min(cgEmHoras, (i + 1) * 40), 0); // Calcula as horas acumuladas até este semestre
+    <p>@((i + 1) + "º semestre: " + horasSemestre.ToString("0.0").Replace(".", ",") + " de 40 horas completas")</p>
+}
 
-    <p style="font-size: 14px;">Em minutos: @(Model / 1) minutos acumulados</p>
-    @if(cgEmHoras >= 240)
-    {
-        <h3 style="text-align: center; color: green;"><strong>Parabéns! Você concluiu sua carga de atividades complementárias!</strong></h3>
-    }
+<p style="font-size: 14px;">Em minutos: @(Model / 1) minutos acumulados</p>
+@if(cgEmHoras >= 240) {
+    <h3 style="text-align: center; color: green;"><strong>Parabéns! Você concluiu sua carga de atividades complementárias!</strong></h3>
+}

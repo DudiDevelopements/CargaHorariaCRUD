@@ -6,15 +6,12 @@ using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
 namespace CargaHorariaCRUD.WebHelper;
 
-public partial class UsuariosIfmsContext : DbContext
-{
-    public UsuariosIfmsContext()
-    {
+public partial class UsuariosIfmsContext : DbContext {
+    public UsuariosIfmsContext() {
     }
 
     public UsuariosIfmsContext(DbContextOptions<UsuariosIfmsContext> options)
-        : base(options)
-    {
+        : base(options) {
     }
 
     public virtual DbSet<AdmModel> Administradores { get; set; }
@@ -26,14 +23,12 @@ public partial class UsuariosIfmsContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseMySql("server=localhost;user=root;database=usuarios_ifms", ServerVersion.Parse("10.4.32-mariadb"));
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
+    protected override void OnModelCreating(ModelBuilder modelBuilder) {
         modelBuilder
             .UseCollation("utf8mb4_general_ci")
             .HasCharSet("utf8mb4");
 
-        modelBuilder.Entity<AdmModel>(entity =>
-        {
+        modelBuilder.Entity<AdmModel>(entity => {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("administradores");
@@ -53,8 +48,7 @@ public partial class UsuariosIfmsContext : DbContext
                 .HasColumnName("senha");
         });
 
-        modelBuilder.Entity<EnvioModel>(entity =>
-        {
+        modelBuilder.Entity<EnvioModel>(entity => {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("envios");
@@ -100,8 +94,7 @@ public partial class UsuariosIfmsContext : DbContext
                 .HasConstraintName("envios_ibfk_1");
         });
 
-        modelBuilder.Entity<UsuarioModel>(entity =>
-        {
+        modelBuilder.Entity<UsuarioModel>(entity => {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("usuarios");

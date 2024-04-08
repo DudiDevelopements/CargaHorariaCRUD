@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CargaHorariaCRUD.Models.FormModels
-{
-    public class EstudanteLoginModel
-    {
+namespace CargaHorariaCRUD.Models.FormModels {
+    public class EstudanteLoginModel {
         [Required(ErrorMessage = "Por favor insira seu CPF")]
         public string CPF { get; set; } = string.Empty;
 

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace CargaHorariaCRUD.Models.Models;
 
-public partial class EnvioModel
-{
-    public EnvioModel(int idAluno, string? email, string? turma, string? prof, string? tipo, string? obs, string? path, DateTime horarioEnviado)
-    {
+public partial class EnvioModel {
+    public EnvioModel(int idAluno, string? email, string? turma, string? prof, string? tipo, string? obs, string? path, DateTime horarioEnviado) {
         IdAluno = idAluno;
         Email = email;
         Turma = turma;
@@ -41,13 +39,11 @@ public partial class EnvioModel
 
     public virtual UsuarioModel IdAlunoNavigation { get; set; } = null!;
 
-    public string? CargaHorariaEmHorasF()
-    {
-        if (CargaHoraria.HasValue)
-        {
+    public string? CargaHorariaEmHorasF() {
+        if(CargaHoraria.HasValue) {
             float horas = (float)CargaHoraria / 60;
             return horas.ToString("F2");
-        }
-        else return null;
+        } else
+            return null;
     }
 }
